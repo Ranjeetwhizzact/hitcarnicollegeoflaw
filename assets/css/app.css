@@ -1,0 +1,137 @@
+/* Small layer of custom CSS on top of Tailwind utilities. */
+
+html { scroll-behavior: smooth; }
+
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #0b1b48;
+}
+
+.footer-heading {
+  position: relative;
+  padding-bottom: 0.6rem;
+  font-weight: 600;
+  color: #fff;
+}
+.footer-heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 2rem;
+  height: 3px;
+  border-radius: 999px;
+  background: #facc15;
+}
+.footer-link { transition: color .15s; }
+.footer-link:hover { color: #fde68a; }
+
+/* Announcement marquee (replaces the deprecated <marquee> tag) */
+.marquee-track {
+  display: inline-flex;
+  gap: 1rem;
+  white-space: nowrap;
+  animation: marquee 28s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+@media (min-width: 1024px) {
+  .marquee-track { animation: none; }
+}
+
+/* Desktop dropdowns: open on hover or keyboard focus */
+.dropdown-menu {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .15s, transform .15s, visibility .15s;
+}
+.dropdown:hover > .dropdown-menu,
+.dropdown:focus-within > .dropdown-menu,
+.dropdown.is-open > .dropdown-menu {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+}
+.dropdown:nth-last-child(-n+3) > .dropdown-menu { left: auto; right: 0; }
+
+/* Mobile drawer */
+.drawer { visibility: hidden; }
+.drawer-backdrop { opacity: 0; transition: opacity .25s; }
+.drawer-panel { transform: translateX(-100%); transition: transform .3s ease; }
+.drawer.is-open { visibility: visible; }
+.drawer.is-open .drawer-backdrop { opacity: 1; }
+.drawer.is-open .drawer-panel { transform: none; }
+
+.modal.is-open { display: flex; }
+
+#to-top.is-visible { opacity: 1; transform: none; }
+
+/* Hero slider */
+.hero-slide { opacity: 0; transition: opacity 1.2s ease; }
+.hero-slide.is-active { opacity: 1; }
+
+.quote-slide { display: none; }
+.quote-slide.is-active { display: block; animation: fadeUp .5s ease; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Tabs */
+.tab-btn[aria-selected="true"] {
+  background: #0b1b48;
+  color: #fff;
+}
+.tab-panel[hidden] { display: none; }
+
+/* Admission wizard */
+.step-pill[aria-current="step"] {
+  background: #2b44e0;
+  color: #fff;
+  border-color: #2b44e0;
+}
+.step-pill.is-done { border-color: #16a34a; color: #16a34a; }
+.error { display: block; margin-top: .25rem; font-size: .75rem; color: #dc2626; }
+.required::after { content: " *"; color: #dc2626; }
+
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* Events page category filter */
+.filter-btn {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: .5rem;
+  border-radius: .75rem;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  padding: .55rem 1rem;
+  font-size: .8125rem;
+  font-weight: 600;
+  color: #0b1b48;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.filter-btn i { color: #2b44e0; }
+.filter-btn:hover { border-color: #c7d2fe; background: #eef2ff; }
+.filter-btn[aria-pressed="true"] { background: #2b44e0; border-color: #2b44e0; color: #fff; box-shadow: 0 8px 20px -10px rgba(43,68,224,.7); }
+.filter-btn[aria-pressed="true"] i { color: #fff; }
